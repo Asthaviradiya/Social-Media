@@ -1,11 +1,45 @@
 import { createContext, useReducer } from "react"
-const PostList = createContext({});
 
-const PostListProvider = ({children}) => {
-    const[postList, dispatch] = useReducer({});
+const PostList = createContext({
+    postList: [],
+    addPost: () => { },
+    deletePost: () => { }
+});
 
-    return <PostList.Provider value={[]}>
+const postListReducer = (currPostList, action) => {
+    return currPostList;
+}
+
+const PostListProvider = ({ children }) => {
+    const [postList, dispatchPostList] = useReducer(postListReducer, DEFAULT_LIST);
+    const addPost = () => {
+
+    }
+    const deletePost = () => {
+
+    }
+
+    return <PostList.Provider value={[{postList,addPost,deletePost} ]}> 
+    {/* // postList : postList .... it is a postlist that we declaired in useReducer, not postlist arr */}
+        
         {children}
     </PostList.Provider>
 }
+
+const DEFAULT_LIST = [{
+    id:'2',
+    title:'pass-out',
+    body:'Hi frds, i passout ',
+    rections:15,
+    userId:'user-12',
+    tags:['pass', 'graduating', 'unbelivable']
+},
+{
+    id:'1',
+    title:'going to mumbai',
+    body:'Hi frds, im going to mumbai for my vacation',
+    rections:2,
+    userId:'user-9',
+    tags:['vacation', 'mumbai']
+}]
 export default PostListProvider;
