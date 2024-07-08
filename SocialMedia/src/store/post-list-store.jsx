@@ -18,9 +18,8 @@ const PostListProvider = ({ children }) => {
     const deletePost = () => {
 
     }
-
-    return <PostList.Provider value={[{postList,addPost,deletePost} ]}> 
-    {/* // postList : postList .... it is a postlist that we declaired in useReducer, not postlist arr */}
+/* // postList : postList .... it is a postlist that we declaired in useReducer, not postlist arr */
+    return <PostList.Provider value={{postList,addPost,deletePost} }> 
         
         {children}
     </PostList.Provider>
