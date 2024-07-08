@@ -7,7 +7,11 @@ export const PostList = createContext({
 });
 
 const postListReducer = (currPostList, action) => {
-    return currPostList;
+    let postList = currPostList
+    if(action.type === 'DELETE_POST'){
+        postList = postList.filter((post) => post.id !== action.payload.postId)
+    }
+    return postList;
 }
 
 const PostListProvider = ({ children }) => {
@@ -15,8 +19,13 @@ const PostListProvider = ({ children }) => {
     const addPost = () => {
 
     }
-    const deletePost = () => {
-
+    const deletePost = (postId) => {
+        dispatchPostList({
+            type:'DELETE_POST',
+            payload:{
+                postId
+            },
+        })
     }
 /* // postList : postList .... it is a postlist that we declaired in useReducer, not postlist arr */
     return <PostList.Provider value={{postList,addPost,deletePost} }> 
@@ -29,7 +38,7 @@ const DEFAULT_LIST = [{
     id:'2',
     title:'pass-out',
     body:'Hi frds, i passout ',
-    rections:15,
+    reactions:15,
     userId:'user-12',
     tags:['pass', 'graduating', 'unbelivable']
 },
@@ -37,7 +46,7 @@ const DEFAULT_LIST = [{
     id:'1',
     title:'going to mumbai',
     body:'Hi frds, im going to mumbai for my vacation',
-    rections:2,
+    reactions:2,
     userId:'user-9',
     tags:['vacation', 'mumbai']
 }]
