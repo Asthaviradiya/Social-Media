@@ -18,7 +18,7 @@ const postListReducer = (currPostList, action) => {
 }
 
 const PostListProvider = ({ children }) => {
-    const [postList, dispatchPostList] = useReducer(postListReducer, DEFAULT_LIST);
+    const [postList, dispatchPostList] = useReducer(postListReducer, []);
     const addPost = (userId, postTitle, postBody, reactions, tags) => {
         dispatchPostList({
                 type: 'ADD_POST',
@@ -47,20 +47,22 @@ const PostListProvider = ({ children }) => {
     </PostList.Provider>
 }
 
-const DEFAULT_LIST = [{
-    id: '2',
-    title: 'pass-out',
-    body: 'Hi frds, i passout ',
-    reactions: 15,
-    userId: 'user-12',
-    tags: ['pass', 'graduating', 'unbelivable']
-},
-{
-    id: '1',
-    title: 'going to mumbai',
-    body: 'Hi frds, im going to mumbai for my vacation',
-    reactions: 2,
-    userId: 'user-9',
-    tags: ['vacation', 'mumbai']
-}]
+
+// for list of object collected by user from form
+// const DEFAULT_LIST = [{
+//     id: '2',
+//     title: 'pass-out',
+//     body: 'Hi frds, i passout ',
+//     reactions: 15,
+//     userId: 'user-12',
+//     tags: ['pass', 'graduating', 'unbelivable']
+// },
+// {
+//     id: '1',
+//     title: 'going to mumbai',
+//     body: 'Hi frds, im going to mumbai for my vacation',
+//     reactions: 2,
+//     userId: 'user-9',
+//     tags: ['vacation', 'mumbai']
+// }]
 export default PostListProvider;
