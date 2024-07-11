@@ -3,13 +3,18 @@ import { createContext, useReducer } from "react"
 export const PostList = createContext({
     postList: [],
     addPost: () => { },
-    deletePost: () => { }
+    addInitialPosts: () => {},
+    deletePost: () => { },
+    
 });
 
 const postListReducer = (currPostList, action) => {
     let postList = currPostList
     if (action.type === 'DELETE_POST') {
         postList = postList.filter((post) => post.id !== action.payload.postId)
+    }
+    else if(action.type === 'ADD_INITIAL_POST'){
+        postList = action.payload.posts;
     }
     else if(action.type === 'ADD_POST'){
         postList = [action.payload,...currPostList]
@@ -32,6 +37,14 @@ const PostListProvider = ({ children }) => {
                 },
             })
     }
+    const addInitialPosts = (posts) => {
+        dispatchPostList({
+                type: 'ADD_INITIAL_POST',
+                payload: {
+                    posts
+                },
+            })
+    }
     const deletePost = (postId) => {
         dispatchPostList({
             type: 'DELETE_POST',
@@ -41,8 +54,7 @@ const PostListProvider = ({ children }) => {
         })
     }
     /* // postList : postList .... it is a postlist that we declaired in useReducer, not postlist arr */
-    return <PostList.Provider value={{ postList, addPost, deletePost }}>
-
+    return <PostList.Provider value={{ postList, addPost,addInitialPosts, deletePost}}>
         {children}
     </PostList.Provider>
 }
